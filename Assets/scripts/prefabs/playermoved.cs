@@ -5,6 +5,12 @@ public class playermoved : MonoBehaviour
     [SerializeField] private float speed;
 
     [SerializeField] private int currentLife = 20;
+
+    public float rotationSpeed = 5f;
+
+    public GameObject bulletPrefab;      
+    public Transform firePoint;          
+    public float bulletForce = 20f;
     void Start()
     {
 
@@ -13,6 +19,10 @@ public class playermoved : MonoBehaviour
     {
         Moved();
         PlayerRotation();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Fire();
+        }
     }
 
     public void Moved() {
@@ -34,13 +44,24 @@ public class playermoved : MonoBehaviour
     }
     public void PlayerRotation()
     {
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        /*Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(cameraRay, out RaycastHit hit))
         {
             Vector3 lookPos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
             transform.root.LookAt(lookPos);
-        }
+        }*/
+        float mouseX = Input.GetAxis("Mouse X");
+
+        // Rotar solo en el eje Y
+        Vector3 rotation = new Vector3(0f, mouseX * rotationSpeed, 0f);
+        transform.Rotate(rotation, Space.World);
+    }
+    private void Fire()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        rb.linearVelocity = firePoint.forward * bulletForce;
     }
     public void TakeDamage()
     {

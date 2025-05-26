@@ -12,4 +12,14 @@ public class SeekPlayer : MonoBehaviour
         dir.y = 0; // Ignorar altura
         GetComponent<SteeringAgent>().ApplySteering(dir.normalized);
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "bala")
+        {
+            collision.gameObject.GetComponent<playermoved>().TakeDamage();
+
+            puntaje.Instance.AddScore(10);
+            Destroy(gameObject);
+        }
+    }
 }

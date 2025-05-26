@@ -12,23 +12,14 @@ public class BaseEnemy : MonoBehaviour
         Power = _power;
         agent.target = target.transform;
     }
-    void Start()
-    {
 
-    }
-    void Update()
-    {
-
-    }
     private void OnCollisionEnter(Collision collision)
     {
-        print(collision.gameObject.name);
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("bala"))
         {
-            collision.gameObject.GetComponent<playermoved>().TakeDamage();
-
-            Destroy(gameObject);
+            puntaje.Instance.AddScore(10);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);          
         }
     }
-
 }
