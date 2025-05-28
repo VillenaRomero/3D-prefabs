@@ -1,19 +1,31 @@
+using JetBrains.Annotations;
+using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class playermoved : MonoBehaviour
 {
     [SerializeField] private float speed;
 
-    [SerializeField] private int currentLife = 20;
+    private float currentTime;
+
+  [SerializeField] private int currentLife = 20;
 
     public float rotationSpeed = 5f;
 
+    public float timeTiCreate = 10;
+    public float currentTimetuCreate;
+
+    public Rigidbody Rb;
     public GameObject bulletPrefab;      
     public Transform firePoint;          
     public float bulletForce = 20f;
+    public int dashForce = 250;
+    public int stamina = 5;
+
     void Start()
     {
-
+        Rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
@@ -23,8 +35,40 @@ public class playermoved : MonoBehaviour
         {
             Fire();
         }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            //AddForce(value, ForceMode.Impulse);
+            // obj.gameObject.GetComponent<Rigidbody>().AddForce(obj.transform.up * 10, ForceMode.Impulse);
+            //RbPlayer.linearVelocity = transform.forward * forceplayer;
+            Rb.AddForce(transform.forward * dashForce, ForceMode.Impulse);
+            /*stamina--;
+            if (stamina >= 30)
+            {
+                bool a = true;
+                while (a)
+                {
+                    currentTimetuCreate += 0.5f;
+                    if (currentTimetuCreate >= timeTiCreate)
+                    {
+                        stamina++;
+                        if (stamina <= 30)
+                        {
+                            a = false;
+                        }
+                        else
+                        {
+                            currentTimetuCreate = 0;
+                        }
+                    }
+                }
+            }
+            else {
+                dashForce = 250;
+            }*/
+        }
     }
-
+       
+   
     public void Moved() {
         /*float moverHorizontal = Input.GetAxis("Horizontal");
         float moverVertical = Input.GetAxis("Vertical");
@@ -42,6 +86,7 @@ public class playermoved : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             transform.position += transform.right * speed * Time.deltaTime;
     }
+    
     public void PlayerRotation()
     {
         /*Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);

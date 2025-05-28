@@ -151,8 +151,8 @@ Rigidbody:
   m_GameObject: {fileID: 5536612079392511603}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 2
+  m_AngularDrag: 2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -181,9 +181,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab3a7d516995f043b605ab5d597500c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
+  speed: 200
   currentLife: 20
   rotationSpeed: 5
+  timeTiCreate: 10
+  currentTimetuCreate: 0
+  Rb: {fileID: 4423971252661918432}
   bulletPrefab: {fileID: 6504102925725018046, guid: 4968d20aff6dd734f8340ddc92822553, type: 3}
   firePoint: {fileID: 7143989826659498943}
   bulletForce: 40
+  dashForce: 250
+  stamina: 5
